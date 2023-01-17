@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hypothetest</title>
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap" rel="stylesheet">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/annotations.js"></script>
+  <script src="action.js"></script>
+  <link rel="stylesheet" type="text/css" href="main.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+</head>
+<body>
+
+  <div id="stage">
+
+    <img style="opacity:0.9;width:min(50vh,100%);" src="Drawing.png">
+
+    <div id="intro" class="panel">
+      <p>Welcome to <em><b>Hypothetest</b></em>, an interactive storyline generator for hypothesis tests!
+       Together, we will turn your seemingly-static problem into an everly-dynamic solution!</p>
+    </div>
+
+    <div id="intro_pop_q" class="panel">
+      <p>Take a look at your problem. Tell me, how many populations are we examining?</p>
+
+      <form>
+        <select id="pops" name="pops">
+          <option value="select">Select</option>
+          <option value="one">One</option>
+          <option value="two">Two</option>
+        </select>
+        <button onclick="intro_pop()" type="button">Proceed</button>
+        <label class="alert">Please select</label>
+      </form>
+    </div>
+
+    <div id="intro_pop_a" class="panel">
+      <p>Take a look at your problem. Tell me, how many populations are we examining?</p>
+      <p><b class="param">Two!</b></p>
+    </div>
+
+    <div id="not_ready" class="panel">
+
+      <p>
+        I'm sorry, but the one-sample tests are not quite ready yet!
+        Come back soon, and while you're waiting, make sure to check
+        out the two sample tests!
+      </p>
+
+      <form style="margin-top:2vh">
+        <button onclick="not_ready()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="pop_names_q" class="panel">
+      <p>Perfect, let's begin our story.<br><br>The first population is called</p>
+
+      <form>
+        <input type="text" placeholder="apple trees"></input>
+      </form>
+
+      <p>and the second population is called</p>
+
+      <form>
+        <input type="text" placeholder="orange trees"></input>
+      </form>
+
+      <form style="margin-top:2vh">
+        <button onclick="pop_names()" type="button">Proceed</button>
+        <button onclick="pop_names_back()" type="button">Back</button>
+        <label class="alert">Please name</label>
+      </form>
+    </div>
+
+
+    <div id="pop_names_a" class="panel">
+      <p>Perfect, let's begin our story.<br><br>The first population is called</p>
+
+      <p><b class="param">Population 1</b></p>
+
+      <p>and the second population is called</p>
+
+      <p><b class="param">Population 2</b></p>
+
+    </div>
+
+    <div id="quantity_q" class="panel">
+      <p>In each population, the quantity of</p>
+
+      <form>
+        <input type="text" placeholder="fruit"></input>
+      </form>
+
+      <p>is being measured.</p>
+
+      <form>
+        <button onclick="quantity_adv()" type="button">Proceed</button>
+        <button onclick="quantity_back()" type="button">Back</button>
+        <label class="alert">Please name</label>
+      </form>
+    </div>
+
+    <div id="quantity_a" class="panel">
+      <p>In each population, the quantity of</p>
+
+      <p><b class="param">fruit</b></p>
+
+      <p>is being measured.</p>
+
+    </div>
+
+
+
+
+    <div id="pop_name_quantity_q" class="panel">
+      <p>Perfect, let's begin our story.<br><br>The population is called</p>
+
+      <form>
+        <input type="text" placeholder="apple trees"></input>
+      </form>
+
+      <p>And in the population, the quantity of</p>
+
+      <form>
+        <input type="text" placeholder="fruit"></input>
+      </form>
+
+      <p>is being measured.</p>
+
+
+      <form style="margin-top:2vh">
+        <button onclick="pop_name_quantity()" type="button">Proceed</button>
+        <button onclick="pop_name_quantity_back()" type="button">Back</button>
+        <label class="alert">Please fill</label>
+      </form>
+    </div>
+
+
+
+    <div id="pop_name_quantity_a" class="panel">
+      <p>Perfect, let's begin our story.<br><br>The population is called</p>
+
+      <p><b class="param">Population 1</b></p>
+
+      <p>And in the population, the quantity of</p>
+
+      <p><b class="param">fruit</b></p>
+
+      <p>is being measured.</p>
+    </div>
+
+    <div id="someone_statistic_q" class="panel">
+      <p>In the problem, someone</p>
+
+      <form>
+        <label>(</label>
+        <input type="text" placeholder="the statistician"></input>
+        <label>)</label>
+      </form>
+
+      <p>is concerned with a statistic regarding the quantity of <span class="param">fruit</span>
+         in <span class="param">each population</span>. The statistic is the</p>
+
+       <form style="margin-bottom:3vh;">
+         <select id="stat" name="stat">
+           <option value="select">Select</option>
+           <option value="mean">Mean</option>
+           <option value="variance">Variance</option>
+           <option value="proportion">Proportion</option>
+           <option value="paired">Mean difference in paired observations</option>
+         </select>
+       </form>
+
+       <form>
+         <button onclick="someone_statistic()" type="button">Proceed</button>
+         <button onclick="someone_statistic_back()" type="button">Back</button>
+         <label class="alert">Please fill</label>
+       </form>
+    </div>
+
+    <div id="someone_statistic_a" class="panel">
+      <p>In the problem, someone</p>
+
+      <p><b class="param">Bob</b></p>
+
+      <p>is concerned with a statistic regarding the quantity of <span class="param">fruit</span>
+         in <span class="param">each population</span>. The statistic is the</p>
+
+       <p><b class="param">Mean</b></p>
+
+    </div>
+
+    <div id="gather_evidence_q" class="panel">
+      <p>
+        Now, <span class="param">Bob</span> suspects that the <span class="param">means of each population
+        are</span> equal to <span class="param">each other</span>. However, <span class="param">Bob</span> wants to see
+        if they can gather enough statistical evidence to show that <span class="param">mean of
+        population 1</span> is in fact
+      </p>
+
+      <form>
+        <select id="eq" name="eq">
+          <option value="select">Select</option>
+          <option value="greater">greater</option>
+          <option value="less">less</option>
+          <option value="different">different</option>
+        </select>
+      </form>
+
+      <p>
+        than <span class="param">the mean of population 2</span>, with a significance level of
+      </p>
+
+      <form>
+        <label>\(\alpha = \)</label>
+        <input style="width:15vh;" type="text" placeholder="0.05"></input>
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="gather_evidence()" type="button">Proceed</button>
+        <button onclick="gather_evidence_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+
+    </div>
+
+
+    <div id="gather_evidence_a" class="panel">
+      <p>
+        Now, <span class="param">Bob</span> suspects that the <span class="param">means of each population
+        are</span> equal to <span class="param">each other</span>. However, <span class="param">Bob</span> wants to see
+        if they can gather enough statistical evidence to show that <span class="param">mean of
+        population 1</span> is in fact
+      </p>
+
+      <p><b class="param">different</b></p>
+
+      <p>
+        than <span class="param">the mean of population 2</span>, with a significance level of
+      </p>
+
+      <p>\(\alpha = \) <b class="param"></b></p>
+
+    </div>
+
+
+    <div id="know_variance_q" class="panel">
+      <p>This is where they need our help!</p>
+
+      <p>First, it is worth noting that <span class="param">Bob</span></p>
+
+      <form>
+        <select id="know" name="know">
+          <option value="select">Select</option>
+          <option value="does">does</option>
+          <option value="doesn't">doesn't</option>
+        </select>
+      </form>
+
+      <p>know the variance for each population.</p>
+
+      <form>
+        <button onclick="know_variance()" type="button">Proceed</button>
+        <button onclick="know_variance_back()" type="button">Back</button>
+        <label class="alert">Please select</label>
+      </form>
+
+    </div>
+
+
+    <div id="know_variance_a" class="panel">
+      <p>This is where they need our help!</p>
+
+      <p>First, it is worth noting that <span class="param">Bob</span></p>
+
+      <p><b class="param">does</b></p>
+
+      <p>know the variance for each population.</p>
+
+    </div>
+
+    <div id="get_variance_q" class="panel">
+
+      <p>The variance for population1 is</p>
+
+      <form>
+        <label>\(\sigma_{1}^{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="101.7"></input>
+      </form>
+
+      <p>and the variance for population2 is</p>
+
+      <form>
+        <label>\(\sigma_{2}^{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="143.2"></input>
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="get_variance()" type="button">Proceed</button>
+        <button onclick="get_variance_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+    </div>
+
+    <div id="get_variance_a" class="panel">
+
+      <p>The variance for population1 is</p>
+
+      <p>\(\sigma_{1}^{2} = \) <b class="param">10.1</b></p>
+
+      <p>and the variance for population2 is</p>
+
+      <p>\(\sigma_{2}^{2} = \) <b class="param">14.3</b></p>
+
+    </div>
+
+    <div  id="get_samples_z2_q" class="panel">
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <form>
+        <label>\(n_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="13"></input>
+      </form>
+
+      <p>and the sample of <span class="param">population2</span> has size</p>
+
+      <form>
+        <label>\(n_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="8"></input>
+      </form>
+
+      <p>In these observations, <span class="param">Bob</span> found that the sample mean of <span class="param">population1</span> is</p>
+
+      <form>
+        <label>\(\overline{x}_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="78.8"></input>
+      </form>
+
+      <p>and the sample mean of <span class="param">population2</span> is</p>
+
+      <form>
+        <label>\(\overline{x}_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="74.1"></input>
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="get_samples_z2()" type="button">Proceed</button>
+        <button onclick="get_samples_z2_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+    </div>
+
+
+    <div  id="get_samples_z2_a" class="panel">
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <p><b>\(n_{1} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample of <span class="param">population2</span> has size</p>
+
+      <p><b>\(n_{2} = \) <span class="param">30</span></b></p>
+
+      <p>In these observations, <span class="param">Bob</span> found that the sample mean of <span class="param">population1</span> is</p>
+
+      <p><b>\(\overline{x}_{1} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample mean of <span class="param">population2</span> is</p>
+
+      <p><b>\(\overline{x}_{2} = \) <span class="param">30</span></b></p>
+
+    </div>
+
+
+
+    <div  id="get_samples_f_q" class="panel">
+
+      <p>This is where they need our help!</p>
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <form>
+        <label>\(n_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="13"></input>
+      </form>
+
+      <p>and the sample of <span class="param">population2</span> has size</p>
+
+      <form>
+        <label>\(n_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="8"></input>
+      </form>
+
+      <p>
+        In these observations, <span class="param">Bob</span> found that the sample variance
+        of <span class="param">fruit</span> in <span class="param">pop1</span> is
+      </p>
+
+      <form>
+        <label>\(s_{1}^{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="101.3"></input>
+      </form>
+
+      <p>and the sample variance of <span class="param">fruit</span> in <span class="param">pop2</span> is</p>
+
+      <form>
+        <label>\(s_{2}^{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="141.2"></input>
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="get_samples_f()" type="button">Proceed</button>
+        <button onclick="get_samples_f_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+    </div>
+
+
+    <div  id="get_samples_f_a" class="panel">
+
+      <p>This is where they need our help!</p>
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <p>\(n_{1} = \) <b><span class="param">99</span></b></p>
+
+      <p>and the sample of <span class="param">population2</span> has size</p>
+
+      <p>\(n_{2} = \) <b><span class="param">99</span></b></p>
+
+      <p>
+        In these observations, <span class="param">Bob</span> found that the sample variance
+        of <span class="param">fruit</span> in <span class="param">pop1</span> is
+      </p>
+
+      <p>\(s_{1}^{2} = \) <b><span class="param">99</span></b></p>
+
+      <p>and the sample variance of <span class="param">fruit</span> in <span class="param">pop2</span> is</p>
+
+      <p>\(s_{2}^{2} = \) <b><span class="param">99</span></b></p>
+
+    </div>
+
+
+    <div  id="get_samples_p2_q" class="panel">
+
+      <p>This is where they need our help!</p>
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <form>
+        <label>\(n_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="13"></input>
+      </form>
+
+      <p>and the sample of <span class="param">population2<span> has size</p>
+
+      <form>
+        <label>\(n_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="8"></input>
+      </form>
+
+      <p>
+        In these observations, <span class="param">Bob</span> found that the sample proportion
+        of <span class="param">fruit</span> in <span class="param">pop1</span> is
+      </p>
+
+      <form>
+        <label>\(\hat{p}_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="0.55"></input>
+      </form>
+
+      <p>and the sample proportion of <span class="param">fruit</span> in <span class="param">pop2</span> is</p>
+
+      <form>
+        <label>\(\hat{p}_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="0.44"></input>
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="get_samples_p2()" type="button">Proceed</button>
+        <button onclick="get_samples_p2_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+    </div>
+
+
+
+    <div  id="get_samples_p2_a" class="panel">
+
+      <p>This is where they need our help!</p>
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <p><b>\(n_{1} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample of <span class="param">population2<span> has size</p>
+
+      <p><b>\(n_{2} = \) <span class="param">30</span></b></p>
+
+      <p>
+        In these observations, <span class="param">Bob</span> found that the sample proportion
+        of <span class="param">fruit</span> in <span class="param">pop1</span> is
+      </p>
+
+      <p><b>\(\hat{p}_{1} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample proportion of <span class="param">fruit</span> in <span class="param">pop2</span> is</p>
+
+      <p><b>\(\hat{p}_{2} = \) <span class="param">30</span></b></p>
+
+    </div>
+
+
+
+
+    <div  id="get_samples_t2_q" class="panel">
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <form>
+        <label>\(n_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="13"></input>
+      </form>
+
+      <p>and the sample of <span class="param">population2</span> has size</p>
+
+      <form>
+        <label>\(n_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="8"></input>
+      </form>
+
+      <p>
+        In their observation of <span class="param">pop1</span>, <span class="param">Bob</span> found that the sample mean
+        quantity of <span class="param">fruit</span> is
+      </p>
+
+      <form>
+        <label>\(\overline{x}_{1} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="78.8"></input>
+      </form>
+
+      <p>and the sample variance of <span class="param">fruit</span> is</p>
+
+      <form>
+        <label>\(s_{1}^{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="101.3"></input>
+      </form>
+
+      <p>
+        In their observation of <span class="param">pop2</span>, <span class="param">Bob</span> found that the sample mean
+        quantity of <span class="param">fruit</span> is
+      </p>
+
+      <form>
+        <label>\(\overline{x}_{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="74.1"></input>
+      </form>
+
+      <p>and the sample variance of <span class="param">fruit</span> is</p>
+
+      <form>
+        <label>\(s_{2}^{2} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="141.2"></input>
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="get_samples_t2()" type="button">Proceed</button>
+        <button onclick="get_samples_t2_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+    </div>
+
+
+    <div  id="get_samples_t2_a" class="panel">
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> collected one sample for each population.
+        The sample of <span class="param">population1</span> has size
+      </p>
+
+      <p><b>\(n_{1} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample of <span class="param">population2</span> has size</p>
+
+      <p><b>\(n_{2} = \) <span class="param">30</span></b></p>
+
+      <p>
+        In their observation of <span class="param">pop1</span>, <span class="param">Bob</span> found that the sample mean
+        quantity of <span class="param">fruit</span> is
+      </p>
+
+      <p><b>\(\overline{x}_{1} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample variance of <span class="param">fruit</span> is</p>
+
+      <p><b>\(s_{1}^{2} = \) <span class="param">30</span></b></p>
+
+      <p>
+        In their observation of <span class="param">pop2</span>, <span class="param">Bob</span> found that the sample mean
+        quantity of <span class="param">fruit</span> is
+      </p>
+
+      <p><b>\(\overline{x}_{2} = \) <span class="param">30</span></b></p>
+
+      <p>and the sample variance of <span class="param">fruit</span> is</p>
+
+      <p><b>\(s_{2}^{2} = \) <span class="param">30</span></b></p>
+
+    </div>
+
+
+    <div  id="get_samples_pt_q" class="panel">
+
+      <p>This is where they need our help!</p>
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> made
+      </p>
+
+      <form>
+        <label>\(n = \)</label>
+        <input style="width:15vh;" type="text" placeholder="18"></input>
+      </form>
+
+      <p>
+        paired observations, and recorded each pair's difference. <br><br>Specifically, two dependent observations, one from
+        <span class="param">pop1</span> and the other from <span class="param">pop2</span>,
+        were paired together, and the difference in quantity was recorded. This process
+        was repeated \(n\) times.
+      </p>
+
+      <p>The sample mean of the observed differences turned out to be</p>
+
+      <form>
+        <label>\(\overline{d} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="-3.5"></input>
+      </form>
+
+      <p>
+        and the sample standard deviation of the observed differences turned out to be
+      </p>
+
+      <form>
+        <label>\(s_{d} = \)</label>
+        <input style="width:15vh;" type="text" placeholder="9.6"></input>
+      </form>
+
+
+      <form style="margin-top:3vh;">
+        <button onclick="get_samples_pt()" type="button">Proceed</button>
+        <button onclick="get_samples_pt_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+    </div>
+
+
+    <div  id="get_samples_pt_a" class="panel">
+
+      <p>This is where they need our help!</p>
+
+      <p>
+        In their endeavor, <span class="param">Bob</span> made
+      </p>
+
+
+      <p><b>\(n = \) <span class="param">30</span></b></p>
+
+      <p>
+        paired observations, and recorded each pair's difference. <br><br>Specifically, two dependent observations, one from
+        <span class="param">pop1</span> and the other from <span class="param">pop2</span>,
+        were paired together, and the difference in quantity was recorded. This process
+        was repeated \(n\) times.
+      </p>
+
+      <p>The sample mean of the observed differences turned out to be</p>
+
+      <p><b>\(\overline{d} = \) <span class="param">30</span></b></p>
+
+      <p>
+        and the sample standard deviation of the observed differences turned out to be
+      </p>
+
+      <p><b>\(s_{d} = \) <span class="param">30</span></b></p>
+
+    </div>
+
+
+    <div id="assume_equality_q" class="panel">
+
+      <p>From the context of the problem, we</p>
+
+      <form>
+        <select id="assump" name="assump" style="width:30vh;">
+          <option value="select">Select</option>
+          <option value="can assume equality">can assume equality</option>
+          <option value="can assume inequality">can assume inequality</option>
+          <option value="cannot assume anything">cannot assume anything</option>
+        </select>
+
+        <p>of our population variances.</p>
+
+      </form>
+
+      <form style="margin-top:3vh;">
+        <button onclick="assume_equality()" type="button">Proceed</button>
+        <button onclick="assume_equality_back()" type="button">Back</button>
+        <label class="alert">Enter valid input</label>
+      </form>
+
+
+    </div>
+
+
+    <div id="assume_equality_a" class="panel">
+
+      <p>From the context of the problem, we</p>
+
+      <p><b class="param"></b>.</p>
+
+
+    </div>
+
+    <div id="test_equality" class="panel">
+
+      <p>
+        <b>Note:</b> <em>Since we cannot assume anything from the context of the problem, we must
+        perform a test on the equality of population variances.</em>
+      </p>
+
+    </div>
+
+    <div id="equality_result" class="panel">
+      <p>
+        In summary, we <span class="param">failed to find</span> evidence suggesting that \(\sigma_{1} \neq \sigma_{2}\),
+        therefore we will assume that <span class="param">\(\sigma_{1} = \sigma_{2}\)</span>. This is the <span class="param">pooled</span> case, and
+        we proceed as planned.
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="equality_result()" type="button">Proceed</button>
+        <button onclick="equality_result_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+
+
+
+
+
+    <div id="null_alt" class="panel">
+
+      <p>This is where we begin our <span id="doub"></span>hypothesis test!</p>
+
+      <p>Specifically, we will perfom the <em><b><span class="param">[TEST_NAME]</span></b></em>.</p>
+
+      <p>
+        To do so, we will assume that the <span class="param">[POP1_UNIT]</span> is equal to the
+        <span class="param">[POP2_UNIT]</span>. We call this the null hypothesis, denoted by
+      </p>
+
+      <p><span class="param">[NULL_HYP]</span></p>
+
+      <p>
+        Under this assumption, we will make inferences with
+        <span class="param">[CONF_EQUATION]</span> confidence,
+        and if we arrive at a contradiction, we can reject our null hypothesis
+        in favor of the alternative hypothesis: the <span class="param">[POP1_UNIT]</span>
+        is <span class="param">[BRANCH]</span> than the <span class="param">[POP2_UNIT]</span>, denoted by
+      </p>
+
+      <p><span class="param">[ALT_HYP]</span></p>
+
+      <p>
+        However, if we can't find a contradiction, then we can't reject the
+        null hypothesis!
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="null_alt()" type="button">Proceed</button>
+        <button onclick="null_alt_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="can_conclude" class="panel">
+
+      <p>Let's proceed as planned.</p>
+
+      <p>
+        Under our assumption, we are supposing that the <span class="param">difference in mean
+        of each population</span> is <span class="param">0</span>. That is, <span class="param">\(\mu_{1} - \mu_{2} = 0\)</span>.
+      </p>
+
+      <p>
+         From this, we can conclude something very important. If we <span class="param">treat the
+         previously-defined statistics \(\overline{X}_{1}, \overline{X}_{2},
+         N_{1}, N_{2}\) as random variables (i.e. they can be ANY value, and
+         the following conclusion will hold), and define another random variable
+         \( Z_{0} \), called the test statistic, to be</span>
+      </p>
+
+      <p><span class="param">$$Z_{0} = \frac{\overline{X}_{1} - \overline{X}_{2}}{\sqrt{\frac{\sigma_{1}^{2}}{N_{1}} + \frac{\sigma_{2}^{2}}{N_{2}}}}$$</span></p>
+
+      <p>
+        Then the probability density function (pdf) of <span class="param">\(Z_{0}\)</span> is
+        the <span class="param">standard normal distribution</span>, denoted by <span class="param">\( Z_{0} \sim N(0,1) \)</span>.
+      </p>
+
+      <p>
+        If you have a hard time understanding this conclusion, don't worry; the
+        derivation is beyond the scope of introductory hypothesis testing, so for
+        now, it's more important to understand what we do with this conclusion!
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="can_conclude()" type="button">Proceed</button>
+        <button onclick="can_conclude_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="confidence_insight" class="panel">
+      <p>Why is this an important conclusion?</p>
+
+      <p>
+        Well, knowing that <span class="param">\( Z_{0} \sim N(0,1) \)</span> allows us to find the
+        <span class="param">95% two-tailed</span> confidence interval, namely <span class="param">\([L,U]\)</span>,
+        of <span class="param">\(Z_{0}\)</span>'s pdf. Then we will be <span class="param">95</span>%
+        confident that any observed test statistic will <span class="param">fall between the values
+        \(L\) and \(U\)</span>, which gives us important insight into which kinds of
+        test statistic values we should be expecting to observe from our samples!
+      </p>
+
+      <p>This will be clearer in a moment. But first, let us calculate <span class="param">\(L\) and \(U\)</span>.</p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="confidence_insight()" type="button">Proceed</button>
+        <button onclick="confidence_insight_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="calculate_confidence" class="panel">
+
+      <p>
+        To find the \(100(1 - \alpha) \% \) <span class="param">two-tailed</span> confidence interval of
+        <span class="param">\(N(0,1)\)</span>, we have
+      </p>
+
+      <p>
+        <span class="param">$$L = \text{invNorm}(\alpha / 2)$$
+        $$U = -\text{invNorm}(\alpha / 2)$$</span>
+      </p>
+
+      <p>
+        Since <span class="param">\(\alpha = 0.05 \)</span>, we then calculate
+      </p>
+
+      <p>
+        <span class="param">$$L = \text{invNorm}(0.05 / 2) = -1.96$$
+        $$U = -\text{invNorm}(0.05 / 2) = 1.96$$</span>
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="calculate_confidence()" type="button">Proceed</button>
+        <button onclick="calculate_confidence_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="confidence_result" class="panel">
+
+      <p>
+        Great. To recap, we are <span class="param">95</span>% confident that under our original assumption,
+        any observed test statistic would <span class="param">fall between -1.96 and 1.96</span>.
+      </p>
+
+      <p>So far, we have strictly spoken from a hypothetical standpoint:</p>
+
+      <p>
+        <em>"If we were to make to make an observation, then the test statistic
+        should fall in our confidence interval <span class="param">95</span>% of the time"</em>
+      </p>
+
+      <p>However, recall that <span class="param">Bob</span> made an observation for us! We can use
+      this to test the strength of our null hypothesis!</p>
+
+      <p>Remember that <span class="param">Bob</span> observed the following statistics:</p>
+
+      <p>
+        <span class="param">
+          $$n_{1} = 10$$
+          $$n_{2} = 14$$
+          $$\overline{x}_{1} = 78.3$$
+          $$\overline{x}_{2} = 75.1$$
+        </span>
+      </p>
+
+      <p>Then the observed test statistic would be</p>
+
+      <p>
+        <span class="param">
+          $$\begin{align} z_{0} = & \frac{\overline{x}_{1} - \overline{x}_{2}}{\sqrt{\frac{\sigma_{1}^{2}}{n_{1}} + \frac{\sigma_{2}^{2}}{n_{2}}}} \\\\
+          = & \frac{78.3 - 75.1}{\sqrt{\frac{5.5}{10} + \frac{6.8}{14}}} \\\\
+          = & 3.14
+          \end{align}$$
+        </span>
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="confidence_result()" type="button">Proceed</button>
+        <button onclick="confidence_result_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="evaluate_test" class="panel">
+      <p>Take a look at the following graph.</p>
+
+      <div id="container"></div>
+
+      <p>
+        As you can see, our observed test statistic (<span class="param">\(z_{0}\)</span>) falls
+        <span class="param"><b>outside</b> of</span> our confidence interval, <span class="param">even though we were 95% sure it would've
+        fallen <b>inside</b>!</span>
+      </p>
+
+      <p><span class="param">This is the contradiction we were looking for to reject our null hypothesis!</span></p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="evaluate_test()" type="button">Proceed</button>
+        <button onclick="evaluate_test_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="intro_p_value" class="panel">
+
+      <p>
+        Finally, we can verify our findings with a more common but less intuitive
+        method.
+      </p>
+
+      <p>
+        In this, we will calculate a statistic called the p-value (\(p\)), and
+        compare it to \(\alpha\).
+      </p>
+
+      <p>
+        The comparison is simple. If \(p < \alpha\), then we reject the null
+        hypothesis. Otherwise, we cannot reject.
+      </p>
+
+      <p>
+        Let's calculate!
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="intro_p_value()" type="button">Proceed</button>
+        <button onclick="intro_p_value_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="calculate_p" class="panel">
+      <p>
+        The p-value, in this situation, is defined as follows
+      </p>
+
+      <p><span class="param">$$p = 2(1 - \phi(z_{0}))$$</span></p>
+
+
+      <p>Then we have</p>
+
+      <p><span class="param">$$\begin{align}
+        p = & \text{ } 2(1 - \phi(3.14)) \\\\
+        = & \text{ } 0.03
+        \end{align}$$</span></p>
+
+      <p><span class="param">Since \(p < \alpha = 0.05\), we reject the null, as expected.</span></p>
+
+      <form style="margin-top:3vh;">
+        <button onclick="calculate_p()" type="button">Proceed</button>
+        <button onclick="calculate_p_back()" type="button">Back</button>
+      </form>
+
+    </div>
+
+    <div id="test_conclusion" class="panel">
+
+      <p>Perfect.</p>
+
+      <p>
+        Now we can tell <span class="param">Bob</span> that there is <span class="param">sufficient</span> evidence to
+        suggest <span class="param">pop1 and pop2 produce different mean quantities of fruit</span>.
+      </p>
+
+      <p>
+        In summary, we assumed the null hypothesis
+      </p>
+
+      <p>
+        <span class="param">$$H_{0}: \mu_{1} = \mu_{2}$$</span>
+      </p>
+
+      <p>
+        and <span class="param">found</span> evidence from our observations to reject the null, in favor of
+        the alternative hypothesis
+      </p>
+
+      <p>
+        <span class="param">$$H_{1}: \mu_{1} \neq \mu_{2}$$</span>
+      </p>
+
+      <p>
+        This concludes our hypothesis test.
+      </p>
+
+      <form style="margin-top:3vh;">
+        <button id="end_button" onclick="new_test()" type="button">Proceed</button>
+        <button onclick="test_conclusion_back()" type="button">Back</button>
+      </form>
+
+
+    </div>
+
+
+    <div id="footer">
+      <div id="label">Copyright &#169; 2020 | Kyle Otstot</div>
+    </div>
+
+
+
+
+
+
+  </div>
+
+
+
+</body>
+</html>

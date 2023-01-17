@@ -1,0 +1,80 @@
+
+
+body {
+  background-color: rgb(230,230,230);
+}
+
+
+#stage {
+  line-height: 1.4;
+  font-family: 'Nanum Myeongjo';
+  font-size: 3.2vh;
+  background-color: rgb(230,230,230);
+  color: rgb(30,30,30);
+  position: absolute;
+  width: min(98%,1000px);
+  left: calc(50% - min(49%,500px));
+  /*box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);*/
+}
+
+select {
+  height: 5vh;
+  width: 15vh;
+  font-size: 2vh;
+}
+
+button {
+  height: 5vh;
+  width: 12vh;
+  font-size: 2vh;
+  /*margin-top: 3vh;*/
+}
+
+input {
+  height: 4vh;
+  width: 25vh;
+  font-size: 2vh;
+}
+
+label {
+  font-size: 3vh;
+}
+
+.alert {
+  display:none;
+  font-size: 2vh;
+  color: red;
+  font-family: arial;
+}
+
+.panel {
+  display:none;
+}
+
+#intro
+{
+  display:initial;
+}
+
+#intro_pop_q
+{
+  display:initial;
+}
+
+#footer {
+  height: 15vh;
+}
+
+#label {
+  position: absolute;
+  bottom: 0%;
+  width: 50vh;
+  left: calc(50% - 25vh);
+  height: 5vh;
+  text-align: center;
+  font-size:2.5vh;
+}
+
+#end_button {
+  display:none;
+}
